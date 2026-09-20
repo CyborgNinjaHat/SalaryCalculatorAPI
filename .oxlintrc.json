@@ -1,10 +1,45 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["eslint", "oxc", "unicorn", "typescript", "import", "promise", "node"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "error"
+  },
   "rules": {
-    "typescript/no-explicit-any": "off",
-    "typescript/no-floating-promises": "error"
+    "eqeqeq": "error",
+    "curly": "error",
+    "no-var": "error",
+    "prefer-const": "error",
+    "unicorn/prefer-node-protocol": "error",
+    "typescript/no-unsafe-assignment": "error",
+    "typescript/no-unsafe-call": "error",
+    "typescript/no-unsafe-member-access": "error",
+    "typescript/no-unsafe-return": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/switch-exhaustiveness-check": "error",
+    "typescript/consistent-type-imports": "off",
+    "typescript/no-extraneous-class": ["error", { "allowWithDecorator": true }],
+    "import/no-cycle": "error",
+    "import/no-unassigned-import": [
+      "error",
+      {
+        "allow": ["dotenv/config"]
+      }
+    ]
+  },
+  "options": {
+    "typeAware": true
   },
   "env": {
     "node": true
-  }
+  },
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/.turbo/**",
+    "**/*.tsbuildinfo",
+    "**/generated/**",
+    "**/components/ui/**"
+  ]
 }
