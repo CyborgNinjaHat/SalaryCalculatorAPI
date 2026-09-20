@@ -1,0 +1,125 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "id": "7a32da79-14cb-4d8c-bc8f-2571dc864a17",
+  "prevIds": ["00000000-0000-0000-0000-000000000000"],
+  "ddl": [
+    {
+      "name": "employees_table",
+      "entityType": "tables"
+    },
+    {
+      "type": "integer",
+      "notNull": false,
+      "autoincrement": true,
+      "default": null,
+      "generated": null,
+      "name": "id",
+      "entityType": "columns",
+      "table": "employees_table"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "name",
+      "entityType": "columns",
+      "table": "employees_table"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "hire_date",
+      "entityType": "columns",
+      "table": "employees_table"
+    },
+    {
+      "type": "real",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "base_salary",
+      "entityType": "columns",
+      "table": "employees_table"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "role",
+      "entityType": "columns",
+      "table": "employees_table"
+    },
+    {
+      "type": "integer",
+      "notNull": false,
+      "autoincrement": false,
+      "default": "NULL",
+      "generated": null,
+      "name": "supervisor_id",
+      "entityType": "columns",
+      "table": "employees_table"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": "CURRENT_TIMESTAMP",
+      "generated": null,
+      "name": "created_at",
+      "entityType": "columns",
+      "table": "employees_table"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": "CURRENT_TIMESTAMP",
+      "generated": null,
+      "name": "updated_at",
+      "entityType": "columns",
+      "table": "employees_table"
+    },
+    {
+      "columns": ["supervisor_id"],
+      "tableTo": "employees_table",
+      "columnsTo": ["id"],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "nameExplicit": false,
+      "name": "fk_employees_table_supervisor_id_employees_table_id_fk",
+      "entityType": "fks",
+      "table": "employees_table"
+    },
+    {
+      "columns": ["id"],
+      "nameExplicit": false,
+      "name": "employees_table_pk",
+      "table": "employees_table",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        {
+          "value": "supervisor_id",
+          "isExpression": false
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "origin": "manual",
+      "name": "supervisor_id_idx",
+      "entityType": "indexes",
+      "table": "employees_table"
+    }
+  ],
+  "renames": []
+}
