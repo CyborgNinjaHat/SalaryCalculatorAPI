@@ -1,5 +1,6 @@
 import { sql } from 'drizzle-orm';
 import { sqliteTable, int, text, real, foreignKey, index } from 'drizzle-orm/sqlite-core';
+import { EMPLOYEE_ROLES } from '../employees/constants/employee.constants.js';
 
 export const employees = sqliteTable(
   'employees_table',
@@ -9,7 +10,7 @@ export const employees = sqliteTable(
     hireDate: text('hire_date').notNull(),
     baseSalary: real('base_salary').notNull(),
     role: text('role', {
-      enum: ['employee', 'manager', 'sales'],
+      enum: [EMPLOYEE_ROLES.EMPLOYEE, EMPLOYEE_ROLES.MANAGER, EMPLOYEE_ROLES.SALES],
     }).notNull(),
     supervisorId: int('supervisor_id').default(sql`NULL`),
     createdAt: text('created_at')
