@@ -18,7 +18,7 @@ import {
   type UpdateEmployeeDto,
 } from '../schemas/employees.schemas.js';
 import { EmployeesService } from '../services/employees.service.js';
-import { toEmployeeResponse } from './employees.response-mapper.js';
+import { toEmployeeResponse, toEmployeeWithSalaryResponse } from './employees.response-mapper.js';
 
 @Controller('employees')
 export class EmployeesController {
@@ -34,6 +34,24 @@ export class EmployeesController {
   async findAll() {
     const employees = await this.employeesService.findAll();
     return employees.map(toEmployeeResponse);
+  }
+
+  @Get('salaries')
+  async getAllSalaries() {
+    const employeesWithSalary = await this.employeesService.findAllSalaries();
+    return employeesWithSalary.result.map(toEmployeeWithSalaryResponse);
+  }
+
+  @Get('salaries/total')
+  async getSumOfSalaries() {
+    const employeesWithSalary = await this.employeesService.findAllSalaries();
+    return { sum: employeesWithSalary.sumOfSalaries };
+  }
+
+  @Get(':id/salary')
+  async getSalary(@Param('id', { schema: employeeIdSchema }) id: EmployeeId) {
+    const employeeWithSalary = await this.employeesService.findSalary(id);
+    return toEmployeeWithSalaryResponse(employeeWithSalary);
   }
 
   @Get(':id')

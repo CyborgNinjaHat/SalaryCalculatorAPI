@@ -1,4 +1,4 @@
-import type { Employee } from '../schemas/employees.schemas.js';
+import type { Employee, EmployeeWithSalary } from '../schemas/employees.schemas.js';
 
 export const toEmployeeResponse = (employee: Employee) => ({
   id: employee.id,
@@ -9,4 +9,12 @@ export const toEmployeeResponse = (employee: Employee) => ({
   supervisorId: employee.supervisorId,
   createdAt: employee.createdAt,
   updatedAt: employee.updatedAt,
+});
+
+export const toEmployeeWithSalaryResponse = (employee: EmployeeWithSalary) => ({
+  id: employee.id,
+  name: employee.name,
+  role: employee.role,
+  baseSalary: employee.baseSalary,
+  salary: employee.salary,
 });

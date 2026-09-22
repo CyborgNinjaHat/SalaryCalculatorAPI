@@ -6,11 +6,13 @@ import {
 } from '@nestjs/common';
 import { EMPLOYEE_ROLES } from '../constants/employee.constants.js';
 import { EmployeesRepository } from '../data-access/employees.repository.js';
+import { calculateSalaries } from '../utils/salary.calculator.js';
 
 import type {
   EmployeeId,
   CreateEmployeeDto,
   UpdateEmployeeDto,
+  Employee,
 } from '../schemas/employees.schemas.js';
 
 @Injectable()
@@ -69,6 +71,34 @@ export class EmployeesService {
     }
   }
 
+  async findAllSalaries() {
+    const allEmployees = await this.employeesRepository.findAll();
+    const rootEmployees = allEmployees.filter((employee) => !employee.supervisorId);
+    const subordinatesMap = this.buildSubordinatesMap(allEmployees);
+    const salaryMap = calculateSalaries(rootEmployees, subordinatesMap);
+
+    const result = allEmployees.map((employee) =>
+      Object.assign({}, employee, {
+        salary: salaryMap.get(employee.id) ?? 0,
+      }),
+    );
+
+    const sumOfSalaries = result.reduce((acc, employee) => acc + employee.salary, 0);
+
+    return { result, sumOfSalaries };
+  }
+
+  async findSalary(id: EmployeeId) {
+    const employee = await this.findOne(id);
+    const subordinates = await this.employeesRepository.findAllSubordinates(employee.id);
+    const subordinatesMap = this.buildSubordinatesMap([employee, ...subordinates]);
+    const salaryMap = calculateSalaries([employee], subordinatesMap);
+
+    const result = Object.assign({}, employee, { salary: salaryMap.get(employee.id) ?? 0 });
+
+    return result;
+  }
+
   private async validateSupervisor(supervisorId: EmployeeId, employeeId?: EmployeeId) {
     if (employeeId === supervisorId) {
       throw new BadRequestException(
@@ -97,5 +127,21 @@ export class EmployeesService {
     if (isCreatingCycle) {
       throw new ConflictException(`This supervisor assignment would create a hierarchy cycle`);
     }
+  }
+
+  private buildSubordinatesMap(employees: Employee[]): Map<EmployeeId, Employee[]> {
+    const subordinatesMap = new Map<EmployeeId, Employee[]>();
+
+    for (const employee of employees) {
+      subordinatesMap.set(employee.id, []);
+    }
+
+    for (const employee of employees) {
+      if (employee.supervisorId && subordinatesMap.has(employee.supervisorId)) {
+        subordinatesMap.get(employee.supervisorId)!.push(employee);
+      }
+    }
+
+    return subordinatesMap;
   }
 }
