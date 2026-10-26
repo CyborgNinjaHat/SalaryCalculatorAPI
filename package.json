@@ -28,34 +28,34 @@
   },
   "dependencies": {
     "@nestjs/common": "^12.0.4",
-    "@nestjs/config": "^12.0.0",
+    "@nestjs/config": "^12.0.1",
     "@nestjs/core": "^12.0.4",
     "@nestjs/platform-express": "^12.0.4",
     "drizzle-orm": "^1.0.0-rc.5-5935859",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
-    "zod": "^4.6.5"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.2.3",
-    "@commitlint/config-conventional": "^21.2.3",
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
     "@commitlint/types": "^21.2.3",
-    "@nestjs/cli": "^12.0.0",
-    "@nestjs/schematics": "^12.0.4",
+    "@nestjs/cli": "^12.0.10",
+    "@nestjs/schematics": "^12.0.10",
     "@nestjs/testing": "^12.0.4",
     "@types/express": "^5.0.0",
     "@types/node": "^24.0.0",
     "@types/supertest": "^7.0.0",
-    "@vitest/coverage-v8": "^5.0.1",
+    "@vitest/coverage-v8": "^5.0.5",
     "drizzle-kit": "^1.0.0-rc.5-5935859",
     "husky": "^9.1.7",
     "lint-staged": "^17.5.1",
     "oxfmt": "^0.70.0",
     "oxlint": "^1.85.0",
-    "oxlint-tsgolint": "^7.0.2001",
+    "oxlint-tsgolint": "^7.0.2005",
     "supertest": "^7.0.0",
     "typescript": "^6.0.2",
-    "vitest": "^5.0.1"
+    "vitest": "^5.0.5"
   },
   "engines": {
     "node": ">=24"
